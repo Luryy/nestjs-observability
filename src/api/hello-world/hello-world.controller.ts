@@ -7,6 +7,7 @@ export class HelloWorldController {
 
   @Get()
   getHello(): string {
+    console.log('Hello');
     return this.helloWorldService.getHello();
   }
 }
