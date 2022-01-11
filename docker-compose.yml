@@ -13,7 +13,7 @@ services:
   prometheus:
     image: prom/prometheus:latest
     volumes:
-      - ./data/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./docker/config/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
     command:
       - '--config.file=/etc/prometheus/prometheus.yml'
     ports:
@@ -26,7 +26,7 @@ services:
     links:
       - prometheus:prometheus
     volumes:
-      - ./data/grafana:/var/lib/grafana
+      - ./docker/data/grafana:/var/lib/grafana
     environment:
       - GF_SECURITY_ADMIN_PASSWORD=12345
       - GF_SERVER_HTTP_PORT=3333
@@ -38,13 +38,13 @@ services:
     ports:
       - "3100:3100"
     volumes:
-      - ./data/loki:/etc/loki
+      - ./docker/config/loki:/etc/loki
     command: -config.file=/etc/loki/loki-config.yaml
 
   promtail:
     image: grafana/promtail:2.2.1
     volumes:
       - /var/log:/var/log
-      - ./data/promtail:/etc/promtail
+      - ./docker/config/promtail:/etc/promtail
       - /var/lib/docker/:/var/lib/docker:ro
     command: -config.file=/etc/promtail/promtail-config.yaml
