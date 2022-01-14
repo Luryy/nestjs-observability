@@ -1,5 +1,14 @@
 {
-  "__inputs": [],
+  "__inputs": [
+    {
+      "name": "DS_METRICS_PLATFORM",
+      "label": "Metrics Platform",
+      "description": "",
+      "type": "datasource",
+      "pluginId": "prometheus",
+      "pluginName": "Prometheus"
+    }
+  ],
   "__requires": [
     {
       "type": "grafana",
@@ -9,8 +18,26 @@
     },
     {
       "type": "panel",
+      "id": "graph",
+      "name": "Graph (old)",
+      "version": ""
+    },
+    {
+      "type": "panel",
       "id": "piechart",
       "name": "Pie chart",
+      "version": ""
+    },
+    {
+      "type": "datasource",
+      "id": "prometheus",
+      "name": "Prometheus",
+      "version": "1.0.0"
+    },
+    {
+      "type": "panel",
+      "id": "stat",
+      "name": "Stat",
       "version": ""
     },
     {
@@ -44,24 +71,222 @@
   "gnetId": null,
   "graphTooltip": 0,
   "id": null,
-  "iteration": 1641902665185,
+  "iteration": 1642194712104,
   "links": [],
   "liveNow": false,
   "panels": [
     {
+      "cacheTimeout": null,
+      "datasource": null,
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 4,
+        "x": 2,
+        "y": 0
+      },
+      "id": 20,
+      "interval": null,
+      "links": [],
+      "maxDataPoints": 100,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "text": {},
+        "textMode": "auto"
+      },
+      "pluginVersion": "8.2.2",
+      "targets": [
+        {
+          "exemplar": true,
+          "expr": "sum(changes(${environment}process_start_time_seconds{instance=~\"$instance\"}[$__range]))",
+          "format": "time_series",
+          "interval": "",
+          "intervalFactor": 1,
+          "legendFormat": "{{instance}}",
+          "refId": "A"
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Process Restart Times in Time Range",
+      "type": "stat"
+    },
+    {
+      "cacheTimeout": null,
+      "datasource": null,
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "string"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 6,
+        "x": 9,
+        "y": 0
+      },
+      "id": 19,
+      "interval": "",
+      "links": [],
+      "maxDataPoints": 100,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "last"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "text": {},
+        "textMode": "name"
+      },
+      "pluginVersion": "8.2.2",
+      "targets": [
+        {
+          "exemplar": true,
+          "expr": "sum(${environment}nodejs_version_info) by (version)",
+          "format": "time_series",
+          "instant": false,
+          "interval": "",
+          "intervalFactor": 1,
+          "legendFormat": "{{version}}",
+          "refId": "A"
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Node.js Version",
+      "type": "stat"
+    },
+    {
+      "datasource": null,
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "blue",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 4,
+        "x": 18,
+        "y": 0
+      },
+      "id": 32,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "text": {},
+        "textMode": "auto"
+      },
+      "pluginVersion": "8.2.2",
+      "targets": [
+        {
+          "exemplar": true,
+          "expr": "count(${environment}nodejs_version_info) by (instace)",
+          "interval": "",
+          "legendFormat": "",
+          "refId": "A"
+        }
+      ],
+      "title": "Active Instances",
+      "type": "stat"
+    },
+    {
+      "collapsed": false,
       "datasource": null,
       "gridPos": {
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 0
+        "y": 3
       },
-      "id": 20,
+      "id": 27,
+      "panels": [],
       "title": "Process Info",
       "type": "row"
     },
     {
       "datasource": null,
+      "description": "This represents the percentage of CPU usage  ",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -72,7 +297,7 @@
             "axisPlacement": "auto",
             "barAlignment": 0,
             "drawStyle": "line",
-            "fillOpacity": 0,
+            "fillOpacity": 10,
             "gradientMode": "none",
             "hideFrom": {
               "legend": false,
@@ -108,15 +333,103 @@
                 "value": 80
               }
             ]
-          }
+          },
+          "unit": "percent"
         },
         "overrides": []
       },
       "gridPos": {
-        "h": 6,
+        "h": 7,
         "w": 12,
         "x": 0,
-        "y": 1
+        "y": 4
+      },
+      "id": 26,
+      "options": {
+        "legend": {
+          "calcs": [
+            "min",
+            "max",
+            "mean",
+            "last"
+          ],
+          "displayMode": "table",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "multi"
+        }
+      },
+      "targets": [
+        {
+          "exemplar": true,
+          "expr": "rate(${environment}process_cpu_seconds_total{instance=~\"$instance\"}[2m]) * 100",
+          "interval": "",
+          "legendFormat": "Total CPU - {{instance}}",
+          "refId": "A"
+        }
+      ],
+      "title": "Process CPU Usage Total",
+      "type": "timeseries"
+    },
+    {
+      "datasource": null,
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 11,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "bytes"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 12,
+        "x": 12,
+        "y": 4
       },
       "id": 2,
       "options": {
@@ -126,103 +439,721 @@
           "placement": "bottom"
         },
         "tooltip": {
-          "mode": "single"
+          "mode": "multi"
         }
       },
       "targets": [
         {
           "exemplar": true,
-          "expr": "${environment}process_resident_memory_bytes / (1024 * 1024)",
+          "expr": "${environment}process_resident_memory_bytes ",
           "interval": "",
           "intervalFactor": 1,
-          "legendFormat": "MB",
+          "legendFormat": "Process Memory - {{instance}}",
           "refId": "A"
         }
       ],
-      "title": "Memory usage (MB)",
+      "title": "Process Memory usage",
       "type": "timeseries"
     },
     {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
       "datasource": null,
-      "description": "This represents the CPU usage seconds increse\n*This is not the percentage of CPU usage",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "drawStyle": "line",
-            "fillOpacity": 34,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "lineInterpolation": "linear",
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "auto",
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          }
-        },
-        "overrides": []
-      },
+      "fill": 1,
+      "fillGradient": 0,
       "gridPos": {
-        "h": 6,
+        "h": 9,
         "w": 12,
-        "x": 12,
-        "y": 1
+        "x": 0,
+        "y": 11
       },
-      "id": 22,
+      "hiddenSeries": false,
+      "id": 17,
+      "legend": {
+        "alignAsTable": true,
+        "avg": true,
+        "current": true,
+        "max": true,
+        "min": true,
+        "show": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 1,
+      "links": [],
+      "nullPointMode": "null",
       "options": {
-        "legend": {
-          "calcs": [],
-          "displayMode": "hidden",
-          "placement": "bottom"
-        },
-        "tooltip": {
-          "mode": "single"
-        }
+        "alertThreshold": true
       },
+      "paceLength": 10,
+      "percentage": false,
+      "pluginVersion": "8.2.2",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
       "targets": [
         {
           "exemplar": true,
-          "expr": "increase(${environment}process_cpu_seconds_total[1m])",
+          "expr": "irate(${environment}process_cpu_user_seconds_total{instance=~\"$instance\"}[2m]) * 100",
+          "format": "time_series",
           "interval": "",
-          "legendFormat": "",
+          "intervalFactor": 1,
+          "legendFormat": "User CPU - {{instance}}",
+          "refId": "A"
+        },
+        {
+          "exemplar": true,
+          "expr": "irate(${environment}process_cpu_system_seconds_total{instance=~\"$instance\"}[2m]) * 100",
+          "format": "time_series",
+          "interval": "",
+          "intervalFactor": 1,
+          "legendFormat": "Sys CPU - {{instance}}",
+          "refId": "B"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Process CPU Usage Detail",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "$$hashKey": "object:1555",
+          "format": "percent",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "$$hashKey": "object:1556",
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": null,
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 12,
+        "y": 11
+      },
+      "hiddenSeries": false,
+      "id": 21,
+      "legend": {
+        "alignAsTable": true,
+        "avg": true,
+        "current": true,
+        "max": true,
+        "min": true,
+        "rightSide": false,
+        "show": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 1,
+      "links": [],
+      "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
+      "paceLength": 10,
+      "percentage": false,
+      "pluginVersion": "8.2.2",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "exemplar": true,
+          "expr": "${environment}process_resident_memory_bytes{instance=~\"$instance\"}",
+          "format": "time_series",
+          "interval": "",
+          "intervalFactor": 1,
+          "legendFormat": "Process Memory - {{instance}}",
+          "refId": "A"
+        },
+        {
+          "expr": "${environment}nodejs_heap_size_total_bytes{instance=~\"$instance\"}",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "Heap Total - {{instance}}",
+          "refId": "B"
+        },
+        {
+          "expr": "${environment}nodejs_heap_size_used_bytes{instance=~\"$instance\"}",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "Heap Used - {{instance}}",
+          "refId": "C"
+        },
+        {
+          "expr": "${environment}nodejs_external_memory_bytes{instance=~\"$instance\"}",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "External Memory - {{instance}}",
+          "refId": "D"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Process Memory Usage Detail",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "$$hashKey": "object:1610",
+          "format": "bytes",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "$$hashKey": "object:1611",
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": null,
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 7,
+        "w": 9,
+        "x": 0,
+        "y": 20
+      },
+      "hiddenSeries": false,
+      "id": 28,
+      "legend": {
+        "alignAsTable": true,
+        "avg": true,
+        "current": true,
+        "max": true,
+        "min": true,
+        "show": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 1,
+      "links": [],
+      "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
+      "paceLength": 10,
+      "percentage": false,
+      "pluginVersion": "8.2.2",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "expr": "${environment}nodejs_eventloop_lag_seconds{instance=~\"$instance\"}",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "{{instance}}",
           "refId": "A"
         }
       ],
-      "title": "CPU Usage",
-      "type": "timeseries"
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Event Loop Lag",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "s",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": null,
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 7,
+        "w": 9,
+        "x": 15,
+        "y": 20
+      },
+      "hiddenSeries": false,
+      "id": 22,
+      "legend": {
+        "alignAsTable": true,
+        "avg": true,
+        "current": true,
+        "max": true,
+        "min": true,
+        "show": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 1,
+      "links": [],
+      "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
+      "paceLength": 10,
+      "percentage": false,
+      "pluginVersion": "8.2.2",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "expr": "${environment}nodejs_active_handles_total{instance=~\"$instance\"}",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "Active Handler - {{instance}}",
+          "refId": "A"
+        },
+        {
+          "expr": "${environment}nodejs_active_requests_total{instance=~\"$instance\"}",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "Active Request - {{instance}}",
+          "refId": "B"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Active Handlers/Requests Total",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": null,
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 0,
+        "y": 27
+      },
+      "hiddenSeries": false,
+      "id": 23,
+      "legend": {
+        "alignAsTable": true,
+        "avg": true,
+        "current": true,
+        "max": true,
+        "min": true,
+        "rightSide": false,
+        "show": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 1,
+      "links": [],
+      "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
+      "paceLength": 10,
+      "percentage": false,
+      "pluginVersion": "8.2.2",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "expr": "${environment}nodejs_heap_space_size_total_bytes{instance=~\"$instance\"}",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "Heap Total - {{instance}} - {{space}}",
+          "refId": "A"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Heap Total Detail",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "bytes",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": null,
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 8,
+        "y": 27
+      },
+      "hiddenSeries": false,
+      "id": 24,
+      "legend": {
+        "alignAsTable": true,
+        "avg": true,
+        "current": true,
+        "max": true,
+        "min": true,
+        "rightSide": false,
+        "show": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 1,
+      "links": [],
+      "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
+      "paceLength": 10,
+      "percentage": false,
+      "pluginVersion": "8.2.2",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "expr": "${environment}nodejs_heap_space_size_used_bytes{instance=~\"$instance\"}",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "Heap Used - {{instance}} - {{space}}",
+          "refId": "A"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Heap Used Detail",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "bytes",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": null,
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 16,
+        "y": 27
+      },
+      "hiddenSeries": false,
+      "id": 25,
+      "legend": {
+        "alignAsTable": true,
+        "avg": true,
+        "current": true,
+        "max": true,
+        "min": true,
+        "rightSide": false,
+        "show": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 1,
+      "links": [],
+      "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
+      "paceLength": 10,
+      "percentage": false,
+      "pluginVersion": "8.2.2",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "expr": "${environment}nodejs_heap_space_size_available_bytes{instance=~\"$instance\"}",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "Heap Used - {{instance}} - {{space}}",
+          "refId": "A"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Heap Available Detail",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "bytes",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
     },
     {
       "collapsed": false,
@@ -231,7 +1162,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 7
+        "y": 35
       },
       "id": 18,
       "panels": [],
@@ -292,32 +1223,32 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 7,
+        "h": 8,
         "w": 16,
         "x": 0,
-        "y": 8
+        "y": 36
       },
       "id": 6,
       "options": {
         "legend": {
           "calcs": [],
           "displayMode": "list",
-          "placement": "right"
+          "placement": "bottom"
         },
         "tooltip": {
-          "mode": "single"
+          "mode": "multi"
         }
       },
       "targets": [
         {
           "exemplar": true,
-          "expr": "sum(increase(${environment}http_request_duration_seconds_sum{path!=\"/favicon.ico\"}[5m])) by (method, path) / sum(increase(${environment}http_request_duration_seconds_count{path!=\"/favicon.ico\"}[5m])) by (method, path)",
+          "expr": "sum(increase(${environment}_http_request_duration_seconds_sum{path!=\"/favicon.ico\"}[${TimeAgregation}])) by (method, path) / sum(increase(${environment}_http_request_duration_seconds_count{path!=\"/favicon.ico\"}[${TimeAgregation}])) by (method, path)",
           "interval": "",
           "legendFormat": "{{method}} {{path}}",
           "refId": "A"
         }
       ],
-      "title": "Request (AVG)",
+      "title": "Request Latency (AVG) ${TimeAgregation}",
       "type": "timeseries"
     },
     {
@@ -340,10 +1271,10 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 7,
+        "h": 8,
         "w": 7,
-        "x": 16,
-        "y": 8
+        "x": 17,
+        "y": 36
       },
       "id": 4,
       "links": [],
@@ -370,7 +1301,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "sum(increase(${environment}http_request_duration_seconds_count{path!~\"/favicon.ico\"}[$__range])) by (status_code)",
+          "expr": "sum(increase(${environment}_http_request_duration_seconds_count{path!~\"/favicon.ico\"}[$__range])) by (status_code)",
           "format": "time_series",
           "interval": "",
           "legendFormat": "{{status_code}}",
@@ -382,6 +1313,7 @@
     },
     {
       "datasource": null,
+      "description": "Quantity of requests by status code",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -436,7 +1368,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 15
+        "y": 44
       },
       "id": 8,
       "options": {
@@ -446,20 +1378,20 @@
           "placement": "right"
         },
         "tooltip": {
-          "mode": "single"
+          "mode": "multi"
         }
       },
       "targets": [
         {
           "exemplar": true,
-          "expr": "sum(increase(${environment}http_request_duration_seconds_count{status_code=~\"2..\"}[5m]))",
+          "expr": "floor(sum(increase(${environment}_http_request_duration_seconds_count{status_code=~\"2..\"}[${TimeAgregation}])))",
           "interval": "",
           "legendFormat": "2xx",
           "refId": "A"
         },
         {
           "exemplar": true,
-          "expr": "sum(increase(${environment}http_request_duration_seconds_count{status_code=~\"3..\"}[5m]))",
+          "expr": "floor(sum(increase(${environment}_http_request_duration_seconds_count{status_code=~\"3..\"}[${TimeAgregation}])))",
           "hide": false,
           "interval": "",
           "legendFormat": "3xx",
@@ -467,7 +1399,7 @@
         },
         {
           "exemplar": true,
-          "expr": "sum(increase(${environment}http_request_duration_seconds_count{status_code=~\"4..\"}[5m]))",
+          "expr": "floor(sum(increase(${environment}_http_request_duration_seconds_count{status_code=~\"4..\"}[${TimeAgregation}])))",
           "hide": false,
           "interval": "",
           "legendFormat": "4xx",
@@ -475,18 +1407,19 @@
         },
         {
           "exemplar": true,
-          "expr": "sum(increase(${environment}http_request_duration_seconds_count{status_code=~\"5..\"}[5m]))",
+          "expr": "floor(sum(increase(${environment}_http_request_duration_seconds_count{status_code=~\"5..\"}[${TimeAgregation}])))",
           "hide": false,
           "interval": "",
           "legendFormat": "5xx",
           "refId": "D"
         }
       ],
-      "title": "Throughput by status code",
+      "title": "Throughput by status code in ${TimeAgregation}",
       "type": "timeseries"
     },
     {
       "datasource": null,
+      "description": "Quantity of requests by endpoint",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -535,35 +1468,60 @@
             ]
           }
         },
-        "overrides": []
+        "overrides": [
+          {
+            "__systemRef": "hideSeriesFrom",
+            "matcher": {
+              "id": "byNames",
+              "options": {
+                "mode": "exclude",
+                "names": [
+                  "GET /v1/products/#val"
+                ],
+                "prefix": "All except:",
+                "readOnly": true
+              }
+            },
+            "properties": [
+              {
+                "id": "custom.hideFrom",
+                "value": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": true
+                }
+              }
+            ]
+          }
+        ]
       },
       "gridPos": {
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 15
+        "y": 44
       },
       "id": 10,
       "options": {
         "legend": {
           "calcs": [],
           "displayMode": "list",
-          "placement": "right"
+          "placement": "bottom"
         },
         "tooltip": {
-          "mode": "single"
+          "mode": "multi"
         }
       },
       "targets": [
         {
           "exemplar": true,
-          "expr": "sum(increase(${environment}http_request_duration_seconds_count{path!~\"/favicon.ico\"}[5m])) by (path)",
+          "expr": "floor(sum(increase(${environment}_http_request_duration_seconds_count{path!~\"/favicon.ico\"}[${TimeAgregation}])) by (method, path))",
           "interval": "",
-          "legendFormat": "{{path}}",
+          "legendFormat": "{{method}} {{path}}",
           "refId": "A"
         }
       ],
-      "title": "Throughput by endpoint",
+      "title": "Throughput by endpoint in ${TimeAgregation}",
       "type": "timeseries"
     },
     {
@@ -623,7 +1581,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 23
+        "y": 52
       },
       "id": 14,
       "options": {
@@ -633,19 +1591,19 @@
           "placement": "right"
         },
         "tooltip": {
-          "mode": "single"
+          "mode": "multi"
         }
       },
       "targets": [
         {
           "exemplar": true,
-          "expr": "sum(increase(${environment}http_request_duration_seconds_count{status_code=~\"[4-5]..\"}[5m])) by (path, status_code)",
+          "expr": "floor(sum(increase(${environment}_http_request_duration_seconds_count{status_code=~\"[4-5]..\"}[${TimeAgregation}])) by (path, status_code))",
           "interval": "",
           "legendFormat": "{{path}} - {{status_code}}",
           "refId": "A"
         }
       ],
-      "title": "Http Error",
+      "title": "Http Error in ${TimeAgregation}",
       "type": "timeseries"
     },
     {
@@ -704,7 +1662,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 23
+        "y": 52
       },
       "id": 12,
       "options": {
@@ -714,19 +1672,19 @@
           "placement": "bottom"
         },
         "tooltip": {
-          "mode": "single"
+          "mode": "multi"
         }
       },
       "targets": [
         {
           "exemplar": true,
-          "expr": "sum(increase(${environment}http_request_duration_seconds_bucket{le=\"+Inf\", path!~\"/favicon.ico\"}[$__range])) by (path)\n- \nsum(increase(${environment}http_request_duration_seconds_bucket{le=\"2\", path!~\"/favicon.ico\"}[$__range])) by (path)",
+          "expr": "floor(sum(increase(${environment}_http_request_duration_seconds_bucket{le=\"+Inf\", path!~\"/favicon.ico\"}[${TimeAgregation}])) by (path)\n- \nsum(increase(${environment}_http_request_duration_seconds_bucket{le=\"2\", path!~\"/favicon.ico\"}[${TimeAgregation}])) by (path))\n",
           "interval": "",
           "legendFormat": "{{path}}",
           "refId": "A"
         }
       ],
-      "title": "Request more than 2s",
+      "title": "Request more than 2s in ${TimeAgregation}",
       "type": "timeseries"
     },
     {
@@ -786,7 +1744,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 31
+        "y": 60
       },
       "id": 16,
       "options": {
@@ -802,17 +1760,76 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "sum(increase(${environment}http_request_duration_seconds_count[5m]))",
+          "expr": "floor(sum(increase(${environment}_http_request_duration_seconds_count[${TimeAgregation}])))",
           "interval": "",
           "legendFormat": "",
           "refId": "A"
         }
       ],
-      "title": "Request Rate",
+      "title": "Request Rate in ${TimeAgregation}",
       "type": "timeseries"
+    },
+    {
+      "datasource": null,
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 6,
+        "x": 18,
+        "y": 60
+      },
+      "id": 30,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "text": {},
+        "textMode": "auto"
+      },
+      "pluginVersion": "8.2.2",
+      "targets": [
+        {
+          "exemplar": true,
+          "expr": "floor(sum(increase(${environment}_http_request_duration_seconds_count[$__range])))",
+          "interval": "",
+          "legendFormat": "",
+          "refId": "A"
+        }
+      ],
+      "title": "Total of Requests at Selected Range",
+      "type": "stat"
     }
   ],
-  "refresh": false,
+  "refresh": "5m",
   "schemaVersion": 31,
   "style": "dark",
   "tags": [],
@@ -821,9 +1838,9 @@
       {
         "allValue": null,
         "current": {
-          "selected": false,
+          "selected": true,
           "text": "production",
-          "value": "production"
+          "value": "production_"
         },
         "description": "Environment of application",
         "error": null,
@@ -836,23 +1853,91 @@
           {
             "selected": false,
             "text": "staging",
-            "value": "staging"
+            "value": "staging_"
           },
           {
             "selected": true,
             "text": "production",
-            "value": ""
+            "value": "production_"
           }
         ],
-        "query": "staging, production",
+        "query": "staging : staging_ , production : production_",
         "queryValue": "",
         "skipUrlSync": false,
         "type": "custom"
+      },
+      {
+        "allValue": null,
+        "current": {
+          "selected": false,
+          "text": "5m",
+          "value": "5m"
+        },
+        "description": "Time agregation at data",
+        "error": null,
+        "hide": 0,
+        "includeAll": false,
+        "label": "Time Agregation",
+        "multi": false,
+        "name": "TimeAgregation",
+        "options": [
+          {
+            "selected": false,
+            "text": "1m",
+            "value": "1m"
+          },
+          {
+            "selected": true,
+            "text": "5m",
+            "value": "5m"
+          },
+          {
+            "selected": false,
+            "text": "20m",
+            "value": "20m"
+          },
+          {
+            "selected": false,
+            "text": "1h",
+            "value": "1h"
+          }
+        ],
+        "query": "1m, 5m, 20m, 1h",
+        "queryValue": "",
+        "skipUrlSync": false,
+        "type": "custom"
+      },
+      {
+        "allValue": null,
+        "current": {},
+        "datasource": "${DS_METRICS_PLATFORM}",
+        "definition": "label_values(${environment}nodejs_version_info, instance)",
+        "description": null,
+        "error": null,
+        "hide": 0,
+        "includeAll": true,
+        "label": "instance",
+        "multi": true,
+        "name": "instance",
+        "options": [],
+        "query": {
+          "query": "label_values(${environment}nodejs_version_info, instance)",
+          "refId": "StandardVariableQuery"
+        },
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 1,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
       }
     ]
   },
   "time": {
-    "from": "now-24h",
+    "from": "now-6h",
     "to": "now"
   },
   "timepicker": {},

@@ -93,7 +93,7 @@ export class PrometheusService {
       includeMethod: true,
       autoregister: false,
       buckets: [0.5, 1, 2, 3, 5, 7],
-      httpDurationMetricName: `http_request_duration_seconds`,
+      httpDurationMetricName: `_http_request_duration_seconds`,
     });
   }
 }
